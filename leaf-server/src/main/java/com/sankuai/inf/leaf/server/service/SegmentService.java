@@ -8,10 +8,11 @@ import com.sankuai.inf.leaf.common.ZeroIDGen;
 import com.sankuai.inf.leaf.segment.SegmentIDGenImpl;
 import com.sankuai.inf.leaf.segment.dao.IDAllocDao;
 import com.sankuai.inf.leaf.segment.dao.impl.IDAllocDaoImpl;
-import com.sankuai.inf.leaf.server.Constants;
+//import com.sankuai.inf.leaf.server.Constants;
 import com.sankuai.inf.leaf.server.exception.InitException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -23,16 +24,25 @@ public class SegmentService {
 
     private IDGen idGen;
     private DruidDataSource dataSource;
+    
+    @Value("${leaf.segment.enable}")
+    private boolean LEAF_SEGMENT_ENABLE;
+    @Value("${leaf.jdbc.url}")
+    private String LEAF_JDBC_URL;
+    @Value("${leaf.jdbc.username}")
+    private String LEAF_JDBC_USERNAME;
+    @Value("${leaf.jdbc.password}")
+    private String LEAF_JDBC_PASSWORD;
 
     public SegmentService() throws SQLException, InitException {
         Properties properties = PropertyFactory.getProperties();
-        boolean flag = Boolean.parseBoolean(properties.getProperty(Constants.LEAF_SEGMENT_ENABLE, "true"));
+        boolean flag = LEAF_SEGMENT_ENABLE;
         if (flag) {
             // Config dataSource
             dataSource = new DruidDataSource();
-            dataSource.setUrl(properties.getProperty(Constants.LEAF_JDBC_URL));
-            dataSource.setUsername(properties.getProperty(Constants.LEAF_JDBC_USERNAME));
-            dataSource.setPassword(properties.getProperty(Constants.LEAF_JDBC_PASSWORD));
+            dataSource.setUrl(properties.getProperty(LEAF_JDBC_URL));
+            dataSource.setUsername(properties.getProperty(LEAF_JDBC_USERNAME));
+            dataSource.setPassword(properties.getProperty(LEAF_JDBC_PASSWORD));
             dataSource.init();
 
             // Config Dao
