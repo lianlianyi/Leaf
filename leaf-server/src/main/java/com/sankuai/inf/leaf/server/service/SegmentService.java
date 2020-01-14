@@ -38,14 +38,15 @@ public class SegmentService {
 		Properties properties = PropertyFactory.getProperties();
 		boolean flag = LEAF_SEGMENT_ENABLE;
 		if (flag) {
+			System.out.println("打印 LEAF_SEGMENT_ENABLE:" + LEAF_SEGMENT_ENABLE + ",LEAF_JDBC_URL:" + LEAF_JDBC_URL
+					+ ",LEAF_JDBC_USERNAME:" + LEAF_JDBC_USERNAME + ",LEAF_JDBC_PASSWORD:" + LEAF_JDBC_PASSWORD);
 			// Config dataSource
 			dataSource = new DruidDataSource();
 			dataSource.setUrl(properties.getProperty(LEAF_JDBC_URL));
 			dataSource.setUsername(properties.getProperty(LEAF_JDBC_USERNAME));
 			dataSource.setPassword(properties.getProperty(LEAF_JDBC_PASSWORD));
 			dataSource.init();
-			System.out.println("打印 LEAF_SEGMENT_ENABLE:" + LEAF_SEGMENT_ENABLE + ",LEAF_JDBC_URL:" + LEAF_JDBC_URL
-					+ ",LEAF_JDBC_USERNAME:" + LEAF_JDBC_USERNAME + ",LEAF_JDBC_PASSWORD:" + LEAF_JDBC_PASSWORD);
+			
 
 			// Config Dao
 			IDAllocDao dao = new IDAllocDaoImpl(dataSource);
