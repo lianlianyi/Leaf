@@ -37,9 +37,9 @@ public class SegmentService {
 	public SegmentService() throws SQLException, InitException {
 		Properties properties = PropertyFactory.getProperties();
 		boolean flag = LEAF_SEGMENT_ENABLE;
+		System.out.println("打印 LEAF_SEGMENT_ENABLE:" + LEAF_SEGMENT_ENABLE + ",LEAF_JDBC_URL:" + LEAF_JDBC_URL
+				+ ",LEAF_JDBC_USERNAME:" + LEAF_JDBC_USERNAME + ",LEAF_JDBC_PASSWORD:" + LEAF_JDBC_PASSWORD);
 		if (flag) {
-			System.out.println("打印 LEAF_SEGMENT_ENABLE:" + LEAF_SEGMENT_ENABLE + ",LEAF_JDBC_URL:" + LEAF_JDBC_URL
-					+ ",LEAF_JDBC_USERNAME:" + LEAF_JDBC_USERNAME + ",LEAF_JDBC_PASSWORD:" + LEAF_JDBC_PASSWORD);
 			// Config dataSource
 			dataSource = new DruidDataSource();
 			dataSource.setUrl(properties.getProperty(LEAF_JDBC_URL));
